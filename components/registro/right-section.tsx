@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { toast } from "sonner";
 
 
 export const RightSection = () => {
@@ -15,6 +16,7 @@ export const RightSection = () => {
     const [telefone, setTelefone] = useState("");
     const [pais, setPais] = useState("");
     const [localidade, setLocalidade] = useState("");
+    const [role, setRole] = useState("");
     const [password, setPassword] = useState("")
     
     
@@ -75,6 +77,14 @@ export const RightSection = () => {
     }
   };
 
+   const changeRole = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value) {
+      setRole(e.target.value);
+    } else {
+      setRole("");
+    }
+  };
+
   const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value) {
       setPassword(e.target.value);
@@ -87,24 +97,35 @@ export const RightSection = () => {
     e.preventDefault();
 
      // fetch API
-    await fetch("http://localhost:8080/users/create", {
+    const response= await fetch("http://localhost:8080/users/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: name,
+        nome: name,
         numero_identificacao: numero_identificacao,
         data_nascimento: data_nascimento,
         email: email,
         telefone: telefone,
         pais: pais,
         localidade: localidade,
+        enabled: 1,
+        role: "cliente",
         password: password,
       }),
-    }).then((response) => {
-      console.log(response.json());
-    });
+    })
+
+    if (response.status === 200) {
+      toast.success("Utilizador criado com sucesso");
+
+      if (typeof window !== "undefined") {
+        window.location.href = "/login";
+      }
+
+    } else {
+      toast.error("Não foi possivel criar conta tente novamente")
+    }
 };
     console.log({  name: name,
         numero_identificacao: numero_identificacao,
@@ -128,7 +149,7 @@ export const RightSection = () => {
               <Label>Name</Label>
               <Input
                 type="text"
-                placeholder="name"
+                placeholder="your name..."
                 className="py-2 h-10 text-lg"
                 value={name}
                 onChange={changeName}
@@ -172,7 +193,7 @@ export const RightSection = () => {
               <Label>Phone Number</Label>
               <Input
                 type="text"
-               
+                placeholder="Your phone number..."
                 className="py-2 h-10 text-lg"
                 value={telefone}
                 onChange={changeTelefone}
@@ -183,7 +204,7 @@ export const RightSection = () => {
               <Label>Country</Label>
               <Input
                 type="text"
-               
+                placeholder="Your country..."
                 className="py-2 h-10 text-lg"
                 value={pais}
                 onChange={changePais}
@@ -194,17 +215,29 @@ export const RightSection = () => {
               <Label>Location</Label>
               <Input
                 type="text"
-                
+                placeholder="Your location..."
                 className="py-2 h-10 text-lg"
                 value={localidade}
                 onChange={changeLocalidade}
               />
             </div>
+
+            <div className="flex flex-col gap-2">
+              <Label>Role</Label>
+              <Input
+                type="cliente"
+                placeholder="Your role..."
+                className="py-2 text-lg h-10"
+                value={role}
+                onChange={changeRole}
+              />
+            </div>
+
               <div className="flex flex-col gap-2">
               <Label>Password</Label>
               <Input
                 type="text"
-                placeholder="your password"
+                placeholder="your password..."
                 className="py-2 h-10 text-lg"
                 value={password}
                 onChange={changePassword}
