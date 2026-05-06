@@ -7,6 +7,8 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { useState } from "react";
 import { toast } from "sonner";
+import {setCookie} from "nookies";
+import { json } from "stream/consumers";
 
 export const RightSection = () => {
   // useState
@@ -51,8 +53,19 @@ export const RightSection = () => {
 
       console.log({"dados recebidos: ": responseData})
 
+      // salvar dados na cookies
+      setCookie(null, "token", responseData.data.token,{
+        maxAge: 60 * 24 * 7,
+        path: "/",
+      })
+
+      setCookie(null, "user", JSON.stringify(responseData.data),{
+        maxAge: 60 * 24 * 7,
+        path: "/",
+      })
+
       if (typeof window !== "undefined") {
-        // window.location.href = "/home";
+         window.location.href = "/home";
       }
 
     } else {
