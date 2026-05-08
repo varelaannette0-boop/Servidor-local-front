@@ -20,7 +20,7 @@ export default function HomePage() {
           category={{
             id: "1",
             nome: "Construção civil",
-            icone: "/icone-placeholder.png",
+            icone: "/cc.png",
           }}
         />
 
@@ -31,7 +31,7 @@ export default function HomePage() {
           category={{
             id: "2",
             nome: "Pintura",
-            icone: "/icone-placeholder.png",
+            icone: "/paint.png",
           }}
         />
 
@@ -42,7 +42,7 @@ export default function HomePage() {
           category={{
             id: "3",
             nome: "Eletricidade",
-            icone: "/icone-placeholder.png",
+            icone: "/electricity.png",
           }}
         />
 
@@ -53,7 +53,7 @@ export default function HomePage() {
           category={{
             id: "4",
             nome: "Canalização",
-            icone: "/icone-placeholder.png",
+            icone: "/canalizacao.icone.png",
           }}
         />
 
@@ -64,7 +64,7 @@ export default function HomePage() {
           category={{
             id: "5",
             nome: "Jardinagem",
-            icone: "/icone-placeholder.png",
+            icone: "/jardinagem.icone.png",
           }}
         />
 
@@ -75,7 +75,7 @@ export default function HomePage() {
           category={{
             id: "6",
             nome: "segurança",
-            icone: "/icone-placeholder.png",
+            icone: "/camera-de-seguranca.png",
           }}
         />
 
